@@ -1,0 +1,19 @@
+{
+  "name": "zwo",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "authors": {
+    "name": "Tom Vandenbroele",
+    "email": "vandenbroeletom@gmail.com"
+  },
+  "repository": "https://github.com/VandenbroeleTom/ZWO/zwo",
+  "scripts": {
+    "dev": "vuepress dev src",
+    "build": "vuepress build src"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.5.3"
+  }
+}
