@@ -4,7 +4,7 @@ module.exports = {
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#title
    */
-  title: 'Vuepress Docs Boilerplate',
+  title: 'Zwift Workouts',
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#description
    */
@@ -27,7 +27,7 @@ module.exports = {
    * ref：https://v1.vuepress.vuejs.org/theme/default-theme-config.html
    */
   themeConfig: {
-    repo: '',
+    repo: 'https://github.com/VandenbroeleTom/zwo',
     editLinks: false,
     docsDir: '',
     editLinkText: '',

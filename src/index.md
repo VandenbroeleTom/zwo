@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: https://v1.vuepress.vuejs.org/hero.png
+heroImage: /assets/icon.svg
 tagline: 
 actionText: Quick Start →
 actionLink: /guide/
@@ -13,3 +13,5 @@ features:
   details: Feature 3 Description
 footer: Made by Tom Vandenbroele with ❤️
 ---
+
+<Editor />
