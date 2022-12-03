@@ -1,5 +1,7 @@
 <template>
     <div class="editor">
+        <Import @data="(e) => workoutFile = e"/>
+
         <div class="ftp">
             <form action="#">
                 <div class="form-group">
@@ -25,44 +27,45 @@
             <table class="input">
                 <thead>
                     <tr>
-                        <th>
-
-                        </th>
-                        <th>
-                            #
-                        </th>
-                        <th>
-                            Type
-                        </th>
-                        <th>
-                            Duration
-                        </th>
+                        <th>#</th>
+                        <th>Type</th>
+                        <th>Power</th>
+                        <th>Duration</th>
                         <th></th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr v-for="block, index in blocks">
-                        <td></td>
+                    <tr v-for="workout, index in workoutFile.workout">
                         <td>{{ index + 1 }}</td>
                         <td>
-                            <select v-model="block.type" name="type" id="type">
-                                <option v-for="type in types" :value="type">{{ type.label }}</option>
+                            <select class="form-control" v-model="workout.tag" name="tag" id="tag">
+                                <option v-for="tag in workoutTags" :value="tag">{{ tag }}</option>
                             </select>
                         </td>
-                        <td><input type="number" name="" id="" v-model="block.duration"></td>
-                        <td><a @click.prevent="blocks = []">&times;</a></td>
+                        <td>
+                            <div v-if="workout.tag != 'Warmup' && workout.tag != 'Cooldown'">
+                                <input type="number" name="power" class="form-control" v-model="(workout.attributes || {}).Power">
+                            </div>
+                            <div v-else>
+                                <input type="number" name="power-low" class="form-control" v-model="(workout.attributes || {}).PowerLow">
+                                <span>-</span>
+                                <input type="number" name="power-high" class="form-control" v-model="(workout.attributes || {}).PowerHigh">
+                            </div>
+                        </td>
+                        <td><input class="form-control" type="number" name="duration" v-model="(workout.attributes || {}).Duration"></td>
+                        <td><a @click.prevent="workoutFile.workout = []">&times;</a></td>
                     </tr>
                 </tbody>
             </table>
 
-            <button @click="blocks.push({})" class="btn btn-primary">Add line</button>
+            <button @click="workoutFile.workout.push({})" class="btn btn-primary">Add line</button>
         </div>
 
         <!-- <chart /> -->
 
         <pre>
-{{ blocks }}
+{{ workoutFile }}
         </pre>
 
         <!-- <XML /> -->
@@ -83,9 +86,12 @@
                         id: 'Z1',
                         label: 'Z1',
                         tag: 'SteadyState',
-                        attributes: {
-                            Power: 0.5
-                        }
+                        attributes: [
+                            {
+                                attribute: 'Power',
+                                value: 0.5
+                            }
+                        ]
                     },
                     {
                         id: 'Z2',
@@ -117,7 +123,15 @@
                         }
                     }
                 ],
-                blocks: [{}],
+                workoutTags: ['SteadyState', 'FreeRide', 'Warmup', 'Cooldown'],
+                workoutFile: {
+                    author: '',
+                    name: '',
+                    description: '',
+                    sportType: '',
+                    tags: [],
+                    workout: [{}],
+                },
             };
         },
     }
@@ -126,13 +140,6 @@
 <style scoped>
     table {
         display: table;
-        width: 100%;
-    }
-
-    label,
-    input,
-    select {
-        display: block;
         width: 100%;
     }
 
