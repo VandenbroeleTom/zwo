@@ -6,15 +6,15 @@
             <form action="#">
                 <div class="form-group">
                     <label for="author" class="form-label">Author</label>
-                    <input type="text" class="form-control" id="author" v-model="author" />
+                    <input type="text" class="form-control" id="author" v-model="workoutFile.author" />
                 </div>
                 <div class="form-group">
                     <label for="name" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="name" v-model="name">
+                    <input type="text" class="form-control" id="name" v-model="workoutFile.name">
                 </div>
                 <div class="form-group">
                     <label for="description" class="form-label">Description</label>
-                    <input type="text" class="form-control" id="description" v-model="description">
+                    <input type="text" class="form-control" id="description" v-model="workoutFile.description">
                 </div>
                 <div class="form-group">
                     <label for="ftp" class="form-label">FTP</label>
@@ -45,21 +45,46 @@
                         </td>
                         <td>
                             <div v-if="workout.tag != 'Warmup' && workout.tag != 'Cooldown'">
-                                <input type="number" name="power" class="form-control" v-model="(workout.attributes || {}).Power">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <input type="number" name="power" class="form-control" v-model="(workout.attributes || {}).Power">
+                                    </div>
+                                    <div class="col-md-3">
+                                        = {{ Math.round((workout.attributes || {}).Power * ftp) || 0 }}W
+                                    </div>
+                                </div>
                             </div>
                             <div v-else>
-                                <input type="number" name="power-low" class="form-control" v-model="(workout.attributes || {}).PowerLow">
-                                <span>-</span>
-                                <input type="number" name="power-high" class="form-control" v-model="(workout.attributes || {}).PowerHigh">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <input type="number" name="power-low" class="form-control" v-model="(workout.attributes || {}).PowerLow"> 
+                                    </div>
+                                    <div class="col-md-3">
+                                        = {{ Math.round((workout.attributes || {}).PowerLow * ftp) || 0 }}W
+                                    </div>
+                                </div>
+
+                                <div>-</div>
+
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <input type="number" name="power-high" class="form-control" v-model="(workout.attributes || {}).PowerHigh">
+                                    </div>
+                                    <div class="col-md-3">
+                                        = {{ Math.round((workout.attributes || {}).PowerHigh * ftp) || 0 }}W
+                                    </div>
+                                </div>
+                                
+                                
                             </div>
                         </td>
                         <td><input class="form-control" type="number" name="duration" v-model="(workout.attributes || {}).Duration"></td>
-                        <td><a @click.prevent="workoutFile.workout = []">&times;</a></td>
+                        <td><a @click.prevent="workoutFile.workout.splice(index, 1)">&times;</a></td>
                     </tr>
                 </tbody>
             </table>
 
-            <button @click="workoutFile.workout.push({})" class="btn btn-primary">Add line</button>
+            <button @click="workoutFile.workout.push({ tag: '', attributes: { Power: 0, Duration: 0 } })" class="btn btn-primary">Add line</button>
         </div>
 
         <!-- <chart /> -->
@@ -130,7 +155,16 @@
                     description: '',
                     sportType: '',
                     tags: [],
-                    workout: [{}],
+                    workout: [
+                        {
+                            tag: 'Warmup',
+                            attributes: {
+                                Duration: 600,
+                                PowerLow: .25,
+                                PowerHigh: .75,
+                            }
+                        }
+                    ],
                 },
             };
         },
