@@ -89,6 +89,8 @@
 
         <!-- <chart /> -->
 
+        <DownloadButton :workoutFile="workoutFile" />
+
         <pre>
 {{ workoutFile }}
         </pre>
@@ -171,7 +173,7 @@
     }
 </script>
 
-<style scoped>
+<style>
     table {
         display: table;
         width: 100%;
