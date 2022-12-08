@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[12],{285:function(n,t,s){"use strict";s.r(t);var a={name:"QuickAdd",data:()=>({options:[{}]})},i=s(10),u=Object(i.a)(a,(function(){return(0,this._self._c)("div",{staticClass:"quick-add"})}),[],!1,null,null,null);t.default=u.exports}}]);

@@ -19,6 +19,11 @@
                 return 'data:text/xml;charset=utf8,' + encodeURIComponent(this.xml);
             },
             xml() {
+
+                if (typeof document == "undefined") {
+                    return '';
+                }
+
                 const xml = document.implementation.createDocument('', '', null);
                 const workoutFile = xml.createElement('workout_file');
                 

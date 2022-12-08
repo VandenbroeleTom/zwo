@@ -38,10 +38,6 @@ module.exports = {
         text: 'Guide',
         link: '/guide/',
       },
-      {
-        text: 'Config',
-        link: '/config/'
-      },
     ],
     sidebar: {
       '/guide/': [
